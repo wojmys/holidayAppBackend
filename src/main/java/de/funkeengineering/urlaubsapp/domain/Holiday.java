@@ -1,9 +1,6 @@
 package de.funkeengineering.urlaubsapp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,7 +19,11 @@ public class Holiday {
     private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
+
+    @Enumerated
     private Status status;
 
+    @OneToOne(mappedBy = "holiday")
+    private Booking booking;
 
 }
