@@ -3,8 +3,6 @@ package de.funkeengineering.urlaubsapp.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
