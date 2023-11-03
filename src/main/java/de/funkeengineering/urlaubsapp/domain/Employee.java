@@ -22,11 +22,8 @@ public class Employee {
     private int totalHolidays;
     private int remainingHolidays;
 
-    @OneToMany(
-            targetEntity = Booking.class,
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            mappedBy = "employee")
-    private List<Booking> employeeBookings = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "BOOKING_ID")
+    private Booking booking;
 
 }
