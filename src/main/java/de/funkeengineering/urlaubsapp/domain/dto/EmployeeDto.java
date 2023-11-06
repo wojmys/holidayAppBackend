@@ -1,9 +1,5 @@
 package de.funkeengineering.urlaubsapp.domain.dto;
 
-import de.funkeengineering.urlaubsapp.domain.Booking;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

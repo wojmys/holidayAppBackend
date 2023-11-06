@@ -17,15 +17,23 @@ public class BookingDbService {
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
     }
-    public Booking saveBooking(Booking booking){
+
+    public Booking saveBooking(Booking booking) {
         return bookingRepository.save(booking);
     }
 
-    public Booking getBookingById(Long id){
-        return bookingRepository.findById(id).orElseThrow(()->new BookingNotFoundException(id));
+    public Booking getBookingById(Long id) {
+        return bookingRepository.findById(id).orElseThrow(() -> new BookingNotFoundException(id));
     }
 
-    public Booking updateBooking(Long bookingId, Booking updatedBooking){
+    public void deleteBookingById(Long id) {
+        if (!bookingRepository.existsById(id)) {
+            throw new BookingNotFoundException(id);
+        }
+            bookingRepository.deleteById(id);
+    }
+
+    public Booking updateBooking(Long bookingId, Booking updatedBooking) {
         Booking existingBooking = getBookingById(bookingId);
 
         existingBooking.setStartDate(updatedBooking.getStartDate());
