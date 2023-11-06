@@ -10,4 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("api/booking")
 public class BookingController {
+
+
+
 }

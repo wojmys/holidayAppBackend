@@ -1,9 +1,7 @@
 package de.funkeengineering.urlaubsapp.mapper;
 
 import de.funkeengineering.urlaubsapp.domain.Booking;
-import de.funkeengineering.urlaubsapp.domain.Holiday;
 import de.funkeengineering.urlaubsapp.domain.dto.BookingDto;
-import de.funkeengineering.urlaubsapp.domain.dto.HolidayDto;
 import de.funkeengineering.urlaubsapp.service.EmployeeDbService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,16 +18,24 @@ public class BookingMapper {
     public BookingDto mapBookingToBookingDto(Booking booking){
         return BookingDto.builder()
                 .id(booking.getId())
-                .employeeId(booking.getEmployee().getId())
-                .holiday(booking.getHoliday())
+                .startDate(booking.getStartDate())
+                .endDate(booking.getEndDate())
+                .quantityDays(booking.getQuantityDays())
+                .status(booking.getStatus())
+                .employee(booking.getEmployee())
+                .employee(booking.getSubstitution())
                 .build();
     }
 
     public Booking mapBookingDtoToBooking(BookingDto bookingDto){
         return Booking.builder()
                 .id(bookingDto.getId())
-                .employee(employeeDbService.getEmployeeById(bookingDto.getEmployeeId()))
-                .holiday(bookingDto.getHoliday())
+                .startDate(bookingDto.getStartDate())
+                .endDate(bookingDto.getEndDate())
+                .quantityDays(bookingDto.getQuantityDays())
+                .status(bookingDto.getStatus())
+                .employee(bookingDto.getEmployee())
+                .employee(bookingDto.getSubstitution())
                 .build();
     }
 

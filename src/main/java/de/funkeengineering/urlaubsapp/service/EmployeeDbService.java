@@ -28,7 +28,6 @@ public class EmployeeDbService {
     public Employee updateEmployee(Long employeeId, Employee updatedEmployee){
         Employee existingEmployee = getEmployeeById(employeeId);
 
-        existingEmployee.setSubstitute(updatedEmployee.getSubstitute());
         existingEmployee.setName(updatedEmployee.getName());
         existingEmployee.setBookings(updatedEmployee.getBookings());
         existingEmployee.setRemainingHolidays(updatedEmployee.getRemainingHolidays());

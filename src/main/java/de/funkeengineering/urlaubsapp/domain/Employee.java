@@ -17,7 +17,6 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String substitute;
     private int totalHolidays;
     private int remainingHolidays;
 
@@ -28,5 +27,4 @@ public class Employee {
             fetch = FetchType.EAGER
     )
     private List<Booking> bookings;
-
 }

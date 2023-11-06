@@ -1,8 +1,10 @@
 package de.funkeengineering.urlaubsapp.domain.dto;
 
 import de.funkeengineering.urlaubsapp.domain.Employee;
-import de.funkeengineering.urlaubsapp.domain.Holiday;
-import jakarta.persistence.*;
+import de.funkeengineering.urlaubsapp.domain.Status;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,14 +19,11 @@ import java.time.LocalDate;
 public class BookingDto {
 
     private Long id;
-    private LocalDate dateNow;
-    private Holiday holiday;
-    private Long employeeId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private double quantityDays;
+    private Status status;
+    private Employee employee;
+    private Employee substitution;
 
-    public BookingDto(Long id, Holiday holiday, Long employeeId) {
-        this.id = id;
-        this.dateNow = LocalDate.now();
-        this.holiday = holiday;
-        this.employeeId = employeeId;
-    }
 }

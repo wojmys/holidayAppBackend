@@ -1,11 +1,8 @@
 package de.funkeengineering.urlaubsapp.service;
 
 import de.funkeengineering.urlaubsapp.domain.Booking;
-import de.funkeengineering.urlaubsapp.domain.Holiday;
 import de.funkeengineering.urlaubsapp.error.BookingNotFoundException;
-import de.funkeengineering.urlaubsapp.error.HolidayNotFoundException;
 import de.funkeengineering.urlaubsapp.repository.BookingRepository;
-import de.funkeengineering.urlaubsapp.repository.HolidayRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +28,12 @@ public class BookingDbService {
     public Booking updateBooking(Long bookingId, Booking updatedBooking){
         Booking existingBooking = getBookingById(bookingId);
 
+        existingBooking.setStartDate(updatedBooking.getStartDate());
+        existingBooking.setEndDate(updatedBooking.getEndDate());
+        existingBooking.setQuantityDays(updatedBooking.getQuantityDays());
+        existingBooking.setStatus(updatedBooking.getStatus());
         existingBooking.setEmployee(updatedBooking.getEmployee());
-        existingBooking.setHoliday(updatedBooking.getHoliday());
+        existingBooking.setSubstitution(updatedBooking.getSubstitution());
 
         return saveBooking(existingBooking);
     }
