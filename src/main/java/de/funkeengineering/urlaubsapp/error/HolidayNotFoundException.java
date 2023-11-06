@@ -1,5 +1,8 @@
 package de.funkeengineering.urlaubsapp.error;
 
+import lombok.Getter;
+
+@Getter
 public class HolidayNotFoundException extends RuntimeException{
     private final Long id;
 

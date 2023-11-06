@@ -5,17 +5,18 @@ import de.funkeengineering.urlaubsapp.domain.Holiday;
 import de.funkeengineering.urlaubsapp.domain.dto.HolidayDto;
 import de.funkeengineering.urlaubsapp.service.BookingDbService;
 import de.funkeengineering.urlaubsapp.service.HolidayDbService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class HolidayMapper {
 
     private BookingDbService bookingDbService;
 
-    //map HolidayToHolidayDto
     public HolidayDto mapHolidayToHolidayDto(Holiday holiday){
         return HolidayDto.builder()
                 .id(holiday.getId())
@@ -25,8 +26,6 @@ public class HolidayMapper {
                 .status(holiday.getStatus())
                 .build();
     }
-
-    //map HolidayDtoToHoliday
     public Holiday mapHolidayDtoToHoliday(HolidayDto holidayDto){
         return Holiday.builder()
                 .id(holidayDto.getId())
@@ -36,14 +35,10 @@ public class HolidayMapper {
                 .status(holidayDto.getStatus())
                 .build();
     }
-    //map toHolidayDtoList
-
     public List<HolidayDto>mapToHolidayDtoList(List<Holiday>holidays){
         return holidays.stream()
                 .map(this::mapHolidayToHolidayDto)
                 .collect(Collectors.toList());
     }
-
-
 
 }

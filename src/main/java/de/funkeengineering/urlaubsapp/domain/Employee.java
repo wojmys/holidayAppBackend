@@ -3,6 +3,7 @@ package de.funkeengineering.urlaubsapp.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,8 +21,12 @@ public class Employee {
     private int totalHolidays;
     private int remainingHolidays;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "BOOKING_ID")
-    private Booking booking;
+    @OneToMany(
+            targetEntity = Booking.class,
+            mappedBy = "employee",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List<Booking> bookings;
 
 }

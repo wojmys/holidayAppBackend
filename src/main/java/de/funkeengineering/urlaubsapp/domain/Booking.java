@@ -26,4 +26,9 @@ public class Booking {
     @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 
+    public Booking(LocalDate dateNow, Holiday holiday, Employee employee) {
+        this.dateNow = LocalDate.now();
+        this.holiday = holiday;
+        this.employee = employee;
+    }
 }

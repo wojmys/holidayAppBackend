@@ -26,4 +26,11 @@ public class Holiday {
     @OneToOne(mappedBy = "holiday")
     private Booking booking;
 
+    public Holiday(Long id, LocalDate startDate, LocalDate endDate, Booking booking) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = Status.IN_PROGRESS;
+        this.booking = booking;
+    }
 }
