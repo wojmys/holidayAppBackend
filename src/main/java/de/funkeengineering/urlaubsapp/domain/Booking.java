@@ -22,9 +22,11 @@ public class Booking {
     private Status status;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "EMPLOYEE_ID")
+    @JoinColumn(name = "EMPLOYEE")
     private Employee employee;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SUBSTITUTION")
     private Employee substitution;
 
 

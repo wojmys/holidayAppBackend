@@ -41,9 +41,16 @@ public class BookingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBooking (@PathVariable Long id){
+    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
         bookingDbService.deleteBookingById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<BookingDto> updateBooking(@PathVariable Long id, @RequestBody BookingDto bookingDto){
+        Booking updatedBooking = bookingMapper.mapBookingDtoToBooking(bookingDto);
+        Booking savedBooking = bookingDbService.updateBooking(id,updatedBooking);
+        return ResponseEntity.ok(bookingMapper.mapBookingToBookingDto(savedBooking));
     }
 
 }

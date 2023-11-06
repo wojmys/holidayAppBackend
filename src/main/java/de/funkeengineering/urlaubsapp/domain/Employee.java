@@ -27,4 +27,11 @@ public class Employee {
             fetch = FetchType.EAGER
     )
     private List<Booking> bookings;
+    @OneToMany(
+            targetEntity = Booking.class,
+            mappedBy = "substitution",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List <Booking> substitutions;
 }

@@ -48,5 +48,11 @@ public class EmployeeController {
         employeeDbService.deleteEmployeeById(id);
         return ResponseEntity.ok().build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<EmployeeDto>updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto){
+        Employee updatedEmployee = employeeMapper.mapEmployeeDtoToEmployee(employeeDto);
+        Employee savedEmployee = employeeDbService.updateEmployee(id,updatedEmployee);
+        return ResponseEntity.ok(employeeMapper.mapEmployeeToEmployeeDto(savedEmployee));
+    }
 
 }
