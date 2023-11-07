@@ -145,19 +145,5 @@ class RepositoryTestSuite {
         //then
         assertEquals(3,employeeList.size());   //employee+substitution+secondEmployee
     }
-    @Test
-    void shouldUpdateEmployee() {
-        //given
-        Employee employeeToUpdate = Employee.builder()
-
-                .build();
-        //when
-
-    }
-
-    @Test
-    void shouldUpdateBooking() {
-
-    }
 
 }
