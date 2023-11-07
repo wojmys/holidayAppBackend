@@ -1,5 +1,6 @@
 package de.funkeengineering.urlaubsapp.mapper;
 
+import de.funkeengineering.urlaubsapp.domain.Booking;
 import de.funkeengineering.urlaubsapp.domain.Employee;
 import de.funkeengineering.urlaubsapp.domain.dto.EmployeeDto;
 import de.funkeengineering.urlaubsapp.service.EmployeeDbService;
@@ -16,16 +17,15 @@ public class EmployeeMapper {
 
     private BookingMapper bookingMapper;
 
+
     public EmployeeDto mapEmployeeToEmployeeDto(Employee employee) {
         return EmployeeDto.builder()
                 .id(employee.getId())
                 .name(employee.getName())
                 .totalHolidays(employee.getTotalHolidays())
                 .remainingHolidays(employee.getRemainingHolidays())
-                .bookings(employee.getBookings().stream()
-                        .map(bookingMapper::mapBookingToBookingDto)
-                        .collect(Collectors.toList())
-                )
+                .bookingsId(mapToBookingIdList(employee.getBookings()))
+                .substitutionsId(mapToSubstitutionIdList(employee.getSubstitutions()))
                 .build();
     }
 
@@ -35,16 +35,38 @@ public class EmployeeMapper {
                 .name(employeeDto.getName())
                 .totalHolidays(employeeDto.getTotalHolidays())
                 .remainingHolidays(employeeDto.getRemainingHolidays())
-                .bookings(employeeDto.getBookings().stream()
-                        .map(bookingMapper::mapBookingDtoToBooking)
-                        .collect(Collectors.toList())
-                )
+                .bookings(employeeDto.getBookingsId().stream()
+                        .map(bookingId -> {
+                            Booking booking = new Booking();
+                            booking.setId(bookingId);
+                            return booking;
+                        })
+                        .collect(Collectors.toList()))
+                .substitutions(employeeDto.getSubstitutionsId().stream()
+                        .map(substitutionId -> {
+                            Booking booking = new Booking();
+                            booking.setId(substitutionId);
+                            return booking;
+                        })
+                        .collect(Collectors.toList()))
                 .build();
     }
 
-    public List<EmployeeDto> mapToEmployeeDtosList(List<Employee>employees){
+    public List<EmployeeDto> mapToEmployeeDtosList(List<Employee> employees) {
         return employees.stream()
                 .map(this::mapEmployeeToEmployeeDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<Long> mapToBookingIdList(final List<Booking> bookingList) {
+        return bookingList.stream()
+                .map(Booking::getId)
+                .collect(Collectors.toList());
+    }
+
+    public List<Long> mapToSubstitutionIdList(final List<Booking> substitutionList) {
+        return substitutionList.stream()
+                .map(Booking::getId)
                 .collect(Collectors.toList());
     }
 }

@@ -37,15 +37,17 @@ public class EmployeeController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createEmployee(@RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto) {
         Employee employee = employeeMapper.mapEmployeeDtoToEmployee(employeeDto);
-        employeeDbService.saveEmployee(employee);
-        return ResponseEntity.ok().build();
+        employee = employeeDbService.saveEmployee(employee);
+        log.info("Employee created");
+        return ResponseEntity.ok(employeeMapper.mapEmployeeToEmployeeDto(employee));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         employeeDbService.deleteEmployeeById(id);
+        log.info("Employee with id="+ id+" deleted");
         return ResponseEntity.ok().build();
     }
     @PutMapping("/{id}")

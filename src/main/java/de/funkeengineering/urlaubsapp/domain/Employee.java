@@ -3,6 +3,7 @@ package de.funkeengineering.urlaubsapp.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,12 +27,12 @@ public class Employee {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    private List<Booking> bookings;
+    private List<Booking> bookings=new ArrayList<>();
     @OneToMany(
             targetEntity = Booking.class,
             mappedBy = "substitution",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    private List <Booking> substitutions;
+    private List <Booking> substitutions=new ArrayList<>();
 }

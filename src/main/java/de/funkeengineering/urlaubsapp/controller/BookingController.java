@@ -37,12 +37,14 @@ public class BookingController {
     public ResponseEntity<Void> createBooking(@RequestBody BookingDto bookingDto) {
         Booking booking = bookingMapper.mapBookingDtoToBooking(bookingDto);
         bookingDbService.saveBooking(booking);
+        log.info("Booking created");
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
         bookingDbService.deleteBookingById(id);
+        log.info("Booking with id="+id +" deleted");
         return ResponseEntity.ok().build();
     }
 

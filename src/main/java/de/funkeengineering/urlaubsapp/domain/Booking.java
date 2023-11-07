@@ -29,5 +29,4 @@ public class Booking {
     @JoinColumn(name = "SUBSTITUTION")
     private Employee substitution;
 
-
 }

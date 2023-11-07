@@ -15,6 +15,7 @@ public class BookingMapper {
 
     EmployeeDbService employeeDbService;
 
+
     public BookingDto mapBookingToBookingDto(Booking booking){
         return BookingDto.builder()
                 .id(booking.getId())
@@ -22,8 +23,8 @@ public class BookingMapper {
                 .endDate(booking.getEndDate())
                 .quantityDays(booking.getQuantityDays())
                 .status(booking.getStatus())
-                .employee(booking.getEmployee())
-                .employee(booking.getSubstitution())
+                .employeeId(booking.getEmployee().getId())
+                .substitutionId(booking.getSubstitution().getId())
                 .build();
     }
 
@@ -34,8 +35,8 @@ public class BookingMapper {
                 .endDate(bookingDto.getEndDate())
                 .quantityDays(bookingDto.getQuantityDays())
                 .status(bookingDto.getStatus())
-                .employee(bookingDto.getEmployee())
-                .employee(bookingDto.getSubstitution())
+                .employee(employeeDbService.getEmployeeById(bookingDto.getEmployeeId()))
+                .substitution(employeeDbService.getEmployeeById(bookingDto.getSubstitutionId()))
                 .build();
     }
 

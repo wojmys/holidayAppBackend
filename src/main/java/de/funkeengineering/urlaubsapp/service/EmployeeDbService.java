@@ -1,10 +1,7 @@
 package de.funkeengineering.urlaubsapp.service;
 
-import de.funkeengineering.urlaubsapp.domain.Booking;
 import de.funkeengineering.urlaubsapp.domain.Employee;
-import de.funkeengineering.urlaubsapp.error.BookingNotFoundException;
 import de.funkeengineering.urlaubsapp.error.EmployeeNotFoundException;
-import de.funkeengineering.urlaubsapp.repository.BookingRepository;
 import de.funkeengineering.urlaubsapp.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +39,6 @@ public class EmployeeDbService {
         existingEmployee.setBookings(updatedEmployee.getBookings());
         existingEmployee.setRemainingHolidays(updatedEmployee.getRemainingHolidays());
         existingEmployee.setTotalHolidays(updatedEmployee.getTotalHolidays());
-
 
         return saveEmployee(existingEmployee);
     }
