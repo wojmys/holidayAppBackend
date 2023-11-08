@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -115,7 +116,7 @@ class EmployeeControllerTestSuite {
                         .name("Sam Smith")
                         .build()
         );
-        //when&then
+        //when & then
         when(employeeDbService.getAllEmployees()).thenReturn(employeeList);
         when(employeeMapper.mapToEmployeeDtosList(employeeList)).thenReturn(employeeDtoList);
 
@@ -135,7 +136,7 @@ class EmployeeControllerTestSuite {
     }
 
     @Test
-    void fetchEmployeeByIdTest() {
+    void fetchEmployeeByIdTest() throws Exception {
         //given
         Employee employee = Employee.builder()
                 .id(66L)
@@ -156,10 +157,49 @@ class EmployeeControllerTestSuite {
         when(employeeDbService.getEmployeeById(66L)).thenReturn(employee);
         when(employeeMapper.mapEmployeeToEmployeeDto(employee)).thenReturn(employeeDto);
         //when & then
-
+        mockMvc.perform(get("/api/employee/{id}", employeeDto.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                //    .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(66)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Joe Doe")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.totalHolidays", Matchers.is(15)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.remainingHolidays", Matchers.is(10)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.bookingsId.size()", Matchers.is(0)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.substitutionsId.size()", Matchers.is(0)));
     }
-    @Test
-    void updateEmployeeTest(){
 
+    @Test
+    void updateEmployeeTest() throws Exception{
+        //given
+        Employee employee = Employee.builder()
+                .id(77L)
+                .totalHolidays(5)
+                .remainingHolidays(1)
+                .bookings(new ArrayList<>())
+                .substitutions(new ArrayList<>())
+                .name("Liam Stevens")
+                .build();
+        EmployeeDto requestedEmployee = EmployeeDto.builder()
+                .id(77L)
+                .totalHolidays(55)
+                .remainingHolidays(10)
+                .bookingsId(new ArrayList<>())
+                .substitutionsId(new ArrayList<>())
+                .name("Sara May")
+                .build();
+        when(employeeMapper.mapEmployeeDtoToEmployee(any())).thenReturn(employee);
+        when(employeeDbService.saveEmployee(any())).thenReturn(employee);
+        when(employeeMapper.mapEmployeeToEmployeeDto(any())).thenReturn(requestedEmployee);
+        String jsonContent = new Gson().toJson(requestedEmployee);
+        //when & then
+        mockMvc.perform(put("/api/employee/{id}", requestedEmployee.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Sara May")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.remainingHolidays",Matchers.is(10)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.totalHolidays",Matchers.is(55)));
     }
 }
