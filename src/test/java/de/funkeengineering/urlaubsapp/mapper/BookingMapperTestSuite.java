@@ -30,7 +30,7 @@ class BookingMapperTestSuite {
     void mapToBookingTest() {
         //given
         Employee employee = Employee.builder()
-                .id(1L)
+//                .id(1L)
                 .totalHolidays(10)
                 .remainingHolidays(10)
                 .bookings(new ArrayList<>())
@@ -39,15 +39,15 @@ class BookingMapperTestSuite {
                 .build();
 
         Employee substitute = Employee.builder()
-                .id(2L)
+//                .id(2L)
                 .totalHolidays(10)
                 .remainingHolidays(10)
                 .bookings(new ArrayList<>())
                 .substitutions(new ArrayList<>())
                 .name("Charlie Sheen")
                 .build();
-        employeeDbService.saveEmployee(employee);
-        employeeDbService.saveEmployee(substitute);
+        employee = employeeDbService.saveEmployee(employee);
+        substitute = employeeDbService.saveEmployee(substitute);
 
         BookingDto bookingDto = BookingDto.builder()
                 .id(10L)
@@ -55,8 +55,8 @@ class BookingMapperTestSuite {
                 .endDate(LocalDate.of(2023, 11, 16))
                 .quantityDays(4)
                 .status(Status.APPROVED)
-                .employeeId(1L)
-                .substitutionId(2L)
+                .employeeId(employee.getId())
+                .substitutionId(substitute.getId())
                 .build();
         //when
         Booking booking = bookingMapper.mapBookingDtoToBooking(bookingDto);
@@ -67,8 +67,8 @@ class BookingMapperTestSuite {
         assertEquals(LocalDate.of(2023, 11, 16), booking.getEndDate());
         assertEquals(4, booking.getQuantityDays());
         assertEquals(Status.APPROVED, booking.getStatus());
-        assertEquals(1L, booking.getEmployee().getId());
-        assertEquals(2L, booking.getSubstitution().getId());
+        assertEquals(employee.getId(), booking.getEmployee().getId());
+        assertEquals(substitute.getId(), booking.getSubstitution().getId());
     }
 
     @Test

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -120,12 +121,20 @@ class RepositoryTestSuite {
                 .employee(secondEmployee)
                 .substitution(secondSubstitution)
                 .build();
-        bookingRepository.save(secondBooking);
+        var savedBooking = bookingRepository.save(secondBooking);
+        assertNotEquals(3L, savedBooking);
 
         //when
         List<Booking> bookingList = bookingRepository.findAll();
         //then
-        assertEquals(2,bookingList.size());
+        assertEquals(2, bookingList.size());
+
+        assertEquals(1, bookingList.stream().filter(x -> x.getId().equals(2L)).collect(Collectors.toList()).size());
+
+        bookingRepository.deleteById(2L);
+        bookingList = bookingRepository.findAll();
+        assertEquals(1, bookingList.size());
+
     }
 
     @Test

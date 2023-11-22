@@ -1,10 +1,6 @@
 package de.funkeengineering.urlaubsapp.domain.dto;
 
-import de.funkeengineering.urlaubsapp.domain.Booking;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +15,9 @@ public class EmployeeDto {
     private String name;
     private int totalHolidays;
     private int remainingHolidays;
-    private List<Long> bookingsId = new ArrayList<>();
-    private List<Long> substitutionsId = new ArrayList<>();
+    @Builder.Default
+    private List<Long> bookingIds = new ArrayList<>();
+    @Builder.Default
+    private List<Long> substitutionIds = new ArrayList<>();
 
 }

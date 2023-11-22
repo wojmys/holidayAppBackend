@@ -22,17 +22,12 @@ public class Employee {
     private int remainingHolidays;
 
     @OneToMany(
-            targetEntity = Booking.class,
-            mappedBy = "employee",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            mappedBy = "employee"
     )
-    private List<Booking> bookings=new ArrayList<>();
+    private List<Booking> bookings;
+
     @OneToMany(
-            targetEntity = Booking.class,
-            mappedBy = "substitution",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            mappedBy = "substitution"
     )
-    private List <Booking> substitutions=new ArrayList<>();
+    private List <Booking> substitutions;
 }

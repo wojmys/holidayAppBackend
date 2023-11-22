@@ -21,11 +21,11 @@ public class Booking {
     private double quantityDays;
     private Status status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "EMPLOYEE")
     private Employee employee;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "SUBSTITUTION")
     private Employee substitution;
 

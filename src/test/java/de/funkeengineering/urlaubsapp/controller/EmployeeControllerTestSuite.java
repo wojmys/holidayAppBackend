@@ -1,6 +1,7 @@
 package de.funkeengineering.urlaubsapp.controller;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.funkeengineering.urlaubsapp.domain.Employee;
 import de.funkeengineering.urlaubsapp.domain.dto.EmployeeDto;
 import de.funkeengineering.urlaubsapp.mapper.EmployeeMapper;
@@ -50,14 +51,14 @@ class EmployeeControllerTestSuite {
                 .id(1L)
                 .totalHolidays(10)
                 .remainingHolidays(10)
-                .bookingsId(new ArrayList<>())
-                .substitutionsId(new ArrayList<>())
+                .bookingIds(new ArrayList<>())
+                .substitutionIds(new ArrayList<>())
                 .name("Joe Doe")
                 .build();
         //when & then
         when(employeeMapper.mapEmployeeDtoToEmployee(employeeDto)).thenReturn(employee);
         when(employeeDbService.saveEmployee(employee)).thenReturn(employee);
-        String jsonContent = new Gson().toJson(employeeDto);
+        String jsonContent = new ObjectMapper().writeValueAsString(employeeDto);
         mockMvc.perform(post("/api/employee")
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -102,8 +103,8 @@ class EmployeeControllerTestSuite {
                         .id(22L)
                         .totalHolidays(10)
                         .remainingHolidays(10)
-                        .bookingsId(new ArrayList<>())
-                        .substitutionsId(new ArrayList<>())
+                        .bookingIds(new ArrayList<>())
+                        .substitutionIds(new ArrayList<>())
                         .name("Joe Doe")
                         .build(),
 
@@ -111,8 +112,8 @@ class EmployeeControllerTestSuite {
                         .id(33L)
                         .totalHolidays(10)
                         .remainingHolidays(10)
-                        .bookingsId(new ArrayList<>())
-                        .substitutionsId(new ArrayList<>())
+                        .bookingIds(new ArrayList<>())
+                        .substitutionIds(new ArrayList<>())
                         .name("Sam Smith")
                         .build()
         );
@@ -150,8 +151,8 @@ class EmployeeControllerTestSuite {
                 .id(66L)
                 .totalHolidays(15)
                 .remainingHolidays(10)
-                .bookingsId(new ArrayList<>())
-                .substitutionsId(new ArrayList<>())
+                .bookingIds(new ArrayList<>())
+                .substitutionIds(new ArrayList<>())
                 .name("Joe Doe")
                 .build();
         when(employeeDbService.getEmployeeById(66L)).thenReturn(employee);
@@ -165,10 +166,9 @@ class EmployeeControllerTestSuite {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Joe Doe")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.totalHolidays", Matchers.is(15)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.remainingHolidays", Matchers.is(10)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.bookingsId.size()", Matchers.is(0)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.substitutionsId.size()", Matchers.is(0)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.bookingIds.size()", Matchers.is(0)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.substitutionIds.size()", Matchers.is(0)));
     }
-
     @Test
     void updateEmployeeTest() throws Exception{
         //given
@@ -184,14 +184,14 @@ class EmployeeControllerTestSuite {
                 .id(77L)
                 .totalHolidays(55)
                 .remainingHolidays(10)
-                .bookingsId(new ArrayList<>())
-                .substitutionsId(new ArrayList<>())
+                .bookingIds(new ArrayList<>())
+                .substitutionIds(new ArrayList<>())
                 .name("Sara May")
                 .build();
         when(employeeMapper.mapEmployeeDtoToEmployee(any())).thenReturn(employee);
         when(employeeDbService.saveEmployee(any())).thenReturn(employee);
         when(employeeMapper.mapEmployeeToEmployeeDto(any())).thenReturn(requestedEmployee);
-        String jsonContent = new Gson().toJson(requestedEmployee);
+        String jsonContent = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(requestedEmployee);
         //when & then
         mockMvc.perform(put("/api/employee/{id}", requestedEmployee.getId())
                 .contentType(MediaType.APPLICATION_JSON)

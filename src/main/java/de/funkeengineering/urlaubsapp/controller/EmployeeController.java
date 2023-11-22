@@ -19,6 +19,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @AllArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("api/employee")
 public class EmployeeController {
 
@@ -33,6 +34,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> fetchEmployeeById(@PathVariable Long id) {
+        log.info("Get Employee by Id {}", id);
         return ResponseEntity.ok(employeeMapper.mapEmployeeToEmployeeDto(employeeDbService.getEmployeeById(id)));
     }
 

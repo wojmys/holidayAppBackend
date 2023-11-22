@@ -36,8 +36,8 @@ class EmployeeMapperTestSuite {
         assertEquals(1L, employeeDto.getId());
         assertEquals(10, employeeDto.getTotalHolidays());
         assertEquals(10, employeeDto.getRemainingHolidays());
-        assertEquals(0, employeeDto.getBookingsId().size());
-        assertEquals(0, employeeDto.getSubstitutionsId().size());
+        assertEquals(0, employeeDto.getBookingIds().size());
+        assertEquals(0, employeeDto.getSubstitutionIds().size());
         assertEquals("Joe Doe", employeeDto.getName());
     }
 
@@ -48,11 +48,11 @@ class EmployeeMapperTestSuite {
                 .id(1L)
                 .name("John Smith")
                 .totalHolidays(5)
-                .bookingsId(new ArrayList<>())
-                .substitutionsId(new ArrayList<>())
+                .bookingIds(new ArrayList<>())
+                .substitutionIds(new ArrayList<>())
                 .remainingHolidays(5)
                 .build();
-        employeeDto.getBookingsId().add(1L);
+        employeeDto.getBookingIds().add(1L);
         //when
         Employee employee = employeeMapper.mapEmployeeDtoToEmployee(employeeDto);
         //then
