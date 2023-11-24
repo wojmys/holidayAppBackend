@@ -7,6 +7,7 @@ import de.funkeengineering.urlaubsapp.domain.dto.BookingDto;
 import de.funkeengineering.urlaubsapp.mapper.BookingMapper;
 import de.funkeengineering.urlaubsapp.repository.BookingRepository;
 import de.funkeengineering.urlaubsapp.repository.EmployeeRepository;
+import de.funkeengineering.urlaubsapp.repository.StatusRepository;
 import de.funkeengineering.urlaubsapp.service.BookingDbService;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
@@ -26,12 +27,15 @@ import java.util.ArrayList;
 public class StartupScript {
 
     private BookingRepository bookingRepository;
+    private StatusRepository statusRepository;
 
     private EmployeeRepository employeeRepository;
 
     @Autowired
-    public StartupScript(BookingRepository bookingRepository,
+    public StartupScript(StatusRepository statusRepository,
+                         BookingRepository bookingRepository,
                          EmployeeRepository employeeRepository) {
+        this.statusRepository = statusRepository;
         this.bookingRepository = bookingRepository;
         this.employeeRepository = employeeRepository;
 
@@ -41,10 +45,20 @@ public class StartupScript {
 
     public void execute() {
 
-
+        createStatus();
         createEmployees();
         createBooking();
 
+    }
+
+    @Transactional
+    public void createStatus() {
+        Status status= Status.builder()
+                .name("In progress")
+                .build();
+
+        log.info("Saving status");
+        statusRepository.save(status);
     }
 
     @Transactional
@@ -52,15 +66,15 @@ public class StartupScript {
         Employee employee1 = Employee.builder()
                 .name("Wojciech")
                 .totalHolidays(30)
-                .bookings(new ArrayList<>())
-                .substitutions(new ArrayList<>())
+//                .bookings(new ArrayList<>())
+//                .substitutions(new ArrayList<>())
                 .build();
 
         Employee employee2 = Employee.builder()
                 .name("Andreas")
                 .totalHolidays(30)
-                .bookings(new ArrayList<>())
-                .substitutions(new ArrayList<>())
+//                .bookings(new ArrayList<>())
+//                .substitutions(new ArrayList<>())
                 .build();
 
 
@@ -76,22 +90,20 @@ public class StartupScript {
     public void createBooking() {
         var employee1 = employeeRepository.findById(1L).get();
         var employee2 = employeeRepository.findById(2L).get();
+        var status = statusRepository.findById(1L).get();
 
 
         Booking booking = Booking.builder()
                 .employee(employee1)
                 .substitution(employee2)
-                .status(Status.IN_PROGRESS)
+                .status(status)
+                //.status(Status.IN_PROGRESS)
                 .startDate(LocalDate.of(2023, 1, 1))
                 .endDate(LocalDate.of(2023, 1, 2))
                 .quantityDays(2.0)
                 .build();
 
-
         log.info("Saving booking");
         bookingRepository.save(booking);
-
     }
-
-
 }

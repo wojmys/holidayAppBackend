@@ -36,7 +36,7 @@ public class EmployeeDbService {
         Employee existingEmployee = getEmployeeById(employeeId);
 
         existingEmployee.setName(updatedEmployee.getName());
-        existingEmployee.setBookings(updatedEmployee.getBookings());
+//        existingEmployee.setBookings(updatedEmployee.getBookings());
         existingEmployee.setRemainingHolidays(updatedEmployee.getRemainingHolidays());
         existingEmployee.setTotalHolidays(updatedEmployee.getTotalHolidays());
 

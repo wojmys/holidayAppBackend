@@ -46,4 +46,11 @@ public class BookingDbService {
         return saveBooking(existingBooking);
     }
 
+    public List<Booking> getBookingByEmployeeId(Long employeeId) {
+        return bookingRepository.findAllByEmployeeId(employeeId);
+    }
+
+    public List<Booking> getBookingBySubstitutionId(Long employeeId) {
+        return bookingRepository.findAllBySubstitutionId(employeeId);
+    }
 }

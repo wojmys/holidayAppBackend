@@ -3,6 +3,7 @@ package de.funkeengineering.urlaubsapp.mapper;
 import de.funkeengineering.urlaubsapp.domain.Booking;
 import de.funkeengineering.urlaubsapp.domain.dto.BookingDto;
 import de.funkeengineering.urlaubsapp.service.EmployeeDbService;
+import de.funkeengineering.urlaubsapp.service.StatusDbService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class BookingMapper {
 
     EmployeeDbService employeeDbService;
+    StatusDbService statusDbService;
 
 
     public BookingDto mapBookingToBookingDto(Booking booking){
@@ -22,7 +24,7 @@ public class BookingMapper {
                 .startDate(booking.getStartDate())
                 .endDate(booking.getEndDate())
                 .quantityDays(booking.getQuantityDays())
-                .status(booking.getStatus())
+                .statusId(booking.getStatus().getId())
                 .employeeId(booking.getEmployee().getId())
                 .substitutionId(booking.getSubstitution().getId())
                 .build();
@@ -34,7 +36,7 @@ public class BookingMapper {
                 .startDate(bookingDto.getStartDate())
                 .endDate(bookingDto.getEndDate())
                 .quantityDays(bookingDto.getQuantityDays())
-                .status(bookingDto.getStatus())
+                .status(statusDbService.getStatusById(bookingDto.getStatusId()))
                 .employee(employeeDbService.getEmployeeById(bookingDto.getEmployeeId()))
                 .substitution(employeeDbService.getEmployeeById(bookingDto.getSubstitutionId()))
                 .build();

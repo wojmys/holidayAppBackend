@@ -21,13 +21,17 @@ public class Employee {
     private int totalHolidays;
     private int remainingHolidays;
 
+    /*
     @OneToMany(
             mappedBy = "employee"
     )
     private List<Booking> bookings;
 
     @OneToMany(
-            mappedBy = "substitution"
+            mappedBy = "substitution",
+            fetch = FetchType.EAGER
     )
     private List <Booking> substitutions;
+         */
+
 }

@@ -22,10 +22,8 @@ public class BookingDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private double quantityDays;
-    private Status status;
-//    private Employee employee;
+    private Long statusId;
     private Long employeeId;
-//    private Employee substitution;
     private Long substitutionId;
 
 }

@@ -25,8 +25,8 @@ class EmployeeMapperTestSuite {
                 .id(1L)
                 .totalHolidays(10)
                 .remainingHolidays(10)
-                .bookings(new ArrayList<>())
-                .substitutions(new ArrayList<>())
+//                .bookings(new ArrayList<>())
+//                .substitutions(new ArrayList<>())
                 .name("Joe Doe")
                 .build();
         //when
@@ -61,7 +61,7 @@ class EmployeeMapperTestSuite {
         assertEquals("John Smith", employee.getName());
         assertEquals(5, employee.getTotalHolidays());
         assertEquals(5, employee.getRemainingHolidays());
-        assertEquals(1, employee.getBookings().size());
+//        assertEquals(1, employee.getBookings().size());
     }
 
 
@@ -73,8 +73,8 @@ class EmployeeMapperTestSuite {
                 .id(1L)
                 .totalHolidays(10)
                 .remainingHolidays(10)
-                .bookings(new ArrayList<>())
-                .substitutions(new ArrayList<>())
+//                .bookings(new ArrayList<>())
+//                .substitutions(new ArrayList<>())
                 .name("Joe Doe")
                 .build()
         );
@@ -82,8 +82,8 @@ class EmployeeMapperTestSuite {
                 .id(2L)
                 .totalHolidays(11)
                 .remainingHolidays(5)
-                .bookings(new ArrayList<>())
-                .substitutions(new ArrayList<>())
+//                .bookings(new ArrayList<>())
+//                .substitutions(new ArrayList<>())
                 .name("Sandra Lee")
                 .build());
         //when

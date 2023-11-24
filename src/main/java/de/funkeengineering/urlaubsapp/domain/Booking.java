@@ -19,6 +19,10 @@ public class Booking {
     private LocalDate startDate;
     private LocalDate endDate;
     private double quantityDays;
+
+
+    @ManyToOne
+    @JoinColumn(name = "STATUS")
     private Status status;
 
     @ManyToOne()

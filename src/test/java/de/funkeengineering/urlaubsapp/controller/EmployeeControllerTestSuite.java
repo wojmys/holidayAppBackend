@@ -43,16 +43,16 @@ class EmployeeControllerTestSuite {
                 .id(1L)
                 .totalHolidays(10)
                 .remainingHolidays(10)
-                .bookings(new ArrayList<>())
-                .substitutions(new ArrayList<>())
+//                .bookings(new ArrayList<>())
+//                .substitutions(new ArrayList<>())
                 .name("Joe Doe")
                 .build();
         EmployeeDto employeeDto = EmployeeDto.builder()
                 .id(1L)
                 .totalHolidays(10)
                 .remainingHolidays(10)
-                .bookingIds(new ArrayList<>())
-                .substitutionIds(new ArrayList<>())
+//                .bookingIds(new ArrayList<>())
+//                .substitutionIds(new ArrayList<>())
                 .name("Joe Doe")
                 .build();
         //when & then
@@ -84,8 +84,8 @@ class EmployeeControllerTestSuite {
                         .id(22L)
                         .totalHolidays(10)
                         .remainingHolidays(10)
-                        .bookings(new ArrayList<>())
-                        .substitutions(new ArrayList<>())
+//                        .bookings(new ArrayList<>())
+//                        .substitutions(new ArrayList<>())
                         .name("Joe Doe")
                         .build(),
 
@@ -93,8 +93,8 @@ class EmployeeControllerTestSuite {
                         .id(33L)
                         .totalHolidays(10)
                         .remainingHolidays(10)
-                        .bookings(new ArrayList<>())
-                        .substitutions(new ArrayList<>())
+//                        .bookings(new ArrayList<>())
+//                        .substitutions(new ArrayList<>())
                         .name("Sam Smith")
                         .build()
         );
@@ -143,16 +143,16 @@ class EmployeeControllerTestSuite {
                 .id(66L)
                 .totalHolidays(15)
                 .remainingHolidays(10)
-                .bookings(new ArrayList<>())
-                .substitutions(new ArrayList<>())
+//                .bookings(new ArrayList<>())
+//                .substitutions(new ArrayList<>())
                 .name("Joe Doe")
                 .build();
         EmployeeDto employeeDto = EmployeeDto.builder()
                 .id(66L)
                 .totalHolidays(15)
                 .remainingHolidays(10)
-                .bookingIds(new ArrayList<>())
-                .substitutionIds(new ArrayList<>())
+//                .bookingIds(new ArrayList<>())
+//                .substitutionIds(new ArrayList<>())
                 .name("Joe Doe")
                 .build();
         when(employeeDbService.getEmployeeById(66L)).thenReturn(employee);
@@ -176,16 +176,16 @@ class EmployeeControllerTestSuite {
                 .id(77L)
                 .totalHolidays(5)
                 .remainingHolidays(1)
-                .bookings(new ArrayList<>())
-                .substitutions(new ArrayList<>())
+//                .bookings(new ArrayList<>())
+//                .substitutions(new ArrayList<>())
                 .name("Liam Stevens")
                 .build();
         EmployeeDto requestedEmployee = EmployeeDto.builder()
                 .id(77L)
                 .totalHolidays(55)
                 .remainingHolidays(10)
-                .bookingIds(new ArrayList<>())
-                .substitutionIds(new ArrayList<>())
+//                .bookingIds(new ArrayList<>())
+//                .substitutionIds(new ArrayList<>())
                 .name("Sara May")
                 .build();
         when(employeeMapper.mapEmployeeDtoToEmployee(any())).thenReturn(employee);

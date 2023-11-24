@@ -3,6 +3,7 @@ package de.funkeengineering.urlaubsapp.mapper;
 import de.funkeengineering.urlaubsapp.domain.Booking;
 import de.funkeengineering.urlaubsapp.domain.Employee;
 import de.funkeengineering.urlaubsapp.domain.dto.EmployeeDto;
+import de.funkeengineering.urlaubsapp.service.BookingDbService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class EmployeeMapper {
 
     private BookingMapper bookingMapper;
 
+    private BookingDbService bookingDbService;
+
 
     public EmployeeDto mapEmployeeToEmployeeDto(Employee employee) {
         return EmployeeDto.builder()
@@ -23,8 +26,8 @@ public class EmployeeMapper {
                 .name(employee.getName())
                 .totalHolidays(employee.getTotalHolidays())
                 .remainingHolidays(employee.getRemainingHolidays())
-                .bookingIds(mapToBookingIdList(employee.getBookings()))
-                .substitutionIds(mapToSubstitutionIdList(employee.getSubstitutions()))
+                .bookingIds(mapToBookingIdList(bookingDbService.getBookingByEmployeeId(employee.getId())))
+                .substitutionIds(mapToSubstitutionIdList(bookingDbService.getBookingBySubstitutionId(employee.getId())))
                 .build();
     }
 
@@ -34,20 +37,6 @@ public class EmployeeMapper {
                 .name(employeeDto.getName())
                 .totalHolidays(employeeDto.getTotalHolidays())
                 .remainingHolidays(employeeDto.getRemainingHolidays())
-                .bookings(employeeDto.getBookingIds().stream()
-                        .map(bookingId -> {
-                            Booking booking = new Booking();
-                            booking.setId(bookingId);
-                            return booking;
-                        })
-                        .collect(Collectors.toList()))
-                .substitutions(employeeDto.getSubstitutionIds().stream()
-                        .map(substitutionId -> {
-                            Booking booking = new Booking();
-                            booking.setId(substitutionId);
-                            return booking;
-                        })
-                        .collect(Collectors.toList()))
                 .build();
     }
 
